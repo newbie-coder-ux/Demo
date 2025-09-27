@@ -8,10 +8,17 @@ import {useSelector,useDispatch} from 'react-redux';
 import {Button} from 'react-bootstrap';
 import {FaEdit, FaTrash} from 'react-icons/fa';
 import { setInitialData} from '../features/tableSlice';
+import {ConfirmationModel} from '../components/Modal/ConfirmationModal';
+import {CustomerDetailsEditModal} from '../components/Modal/CustomerDetailsEditModal';
 
 const Pages = ()=> {
+    const [show,setShow]=useState(false);
     const dispatch = useDispatch();
     const customerState = useSelector((state) => state?.table);
+    const [selectedId, setSelectedId] = useState('')
+    // const [customer, setCustomer] = useState([]);
+
+    console.log("state",customerState);
 
     useEffect(()=>{
         const fetchData = () => {
@@ -33,8 +40,15 @@ const Pages = ()=> {
         
     },[]);
 
-    const handleShow = () => {}
+    const handleEdit = (id) => {
+        setShow(true);
+        selectedId(id);
+    }
 
+    const handleDelete =(id) =>{
+        selectedId(id);
+    }
+    
   return (
     <div>
             <Table striped bordered hover responsive>
@@ -58,10 +72,10 @@ const Pages = ()=> {
                             <td>{customer.address?.city}</td>
                             <td>
                                 {/* Edit */}
-                                <Button variant="primary" onClick={handleShow} style={{marginBottom:'10px'}}>
+                                <Button variant="primary" onClick={(id) => handleEdit(id)} style={{marginBottom:'10px'}}>
                                     <FaEdit style={{marginRight: 5}}/> Edit
                                 </Button>
-                                <Button variant="primary" onClick={handleShow}>
+                                <Button variant="primary" onClick={(id) => handleDelete(id)}>
                                     <FaTrash style={{marginRight: 5}}/> Delete
                                 </Button>
                             </td>
@@ -76,7 +90,9 @@ const Pages = ()=> {
                     )}
                 </tbody>
             </Table>
-            
+                   <CustomerDetailsEditModal show={show} handleClose={handleClose} onSave={onSave}></CustomerDetailsEditModal>
+                   <ConfirmationModel show={show} handleClose={handleClose}></ConfirmationModel>
+
     </div>
   )
 }
