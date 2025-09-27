@@ -4,14 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
 // import axios from 'axios';
 import {headers} from '../constants/constants';
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux';
+import {Button} from 'react-bootstrap';
+import {FaEdit, FaTrash} from 'react-icons/fa';
+import { setInitialData} from '../features/tableSlice';
 
 const Pages = ()=> {
     const dispatch = useDispatch();
-    const customerState = useSelector((state) => state.table);
-    // const [customer, setCustomer] = useState([]);
-
-    console.log("state",customerState);
+    const customerState = useSelector((state) => state?.table);
 
     useEffect(()=>{
         const fetchData = () => {
@@ -34,7 +34,7 @@ const Pages = ()=> {
     },[]);
 
     const handleShow = () => {}
-    
+
   return (
     <div>
             <Table striped bordered hover responsive>
@@ -58,10 +58,10 @@ const Pages = ()=> {
                             <td>{customer.address?.city}</td>
                             <td>
                                 {/* Edit */}
-                                <Button variant="warning" onClick={handleShow}>
+                                <Button variant="primary" onClick={handleShow} style={{marginBottom:'10px'}}>
                                     <FaEdit style={{marginRight: 5}}/> Edit
                                 </Button>
-                                <Button variant="warning" onClick={handleShow}>
+                                <Button variant="primary" onClick={handleShow}>
                                     <FaTrash style={{marginRight: 5}}/> Delete
                                 </Button>
                             </td>
@@ -69,9 +69,9 @@ const Pages = ()=> {
                         ))
                         ) : (
                     <tr>
-                    <td colSpan="5" className="text-center">
-                        No customer data available.
-                    </td>
+                        <td colSpan="5" className="text-center">
+                            No customer data available.
+                        </td>
                     </tr>
                     )}
                 </tbody>
