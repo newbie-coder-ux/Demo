@@ -1,11 +1,10 @@
+
 import {useState,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
 // import axios from 'axios';
 import {headers} from '../constants/constants';
 import {useSelector,useDispatch} from 'react-redux'
-
-
 
 const Pages = ()=> {
     const dispatch = useDispatch();
@@ -32,7 +31,10 @@ const Pages = ()=> {
         }
         fetchData();
         
-    },[])
+    },[]);
+
+    const handleShow = () => {}
+    
   return (
     <div>
             <Table striped bordered hover responsive>
@@ -54,6 +56,15 @@ const Pages = ()=> {
                             <td>{customer.company?.name}</td>
                             <td>{customer.website}</td>
                             <td>{customer.address?.city}</td>
+                            <td>
+                                {/* Edit */}
+                                <Button variant="warning" onClick={handleShow}>
+                                    <FaEdit style={{marginRight: 5}}/> Edit
+                                </Button>
+                                <Button variant="warning" onClick={handleShow}>
+                                    <FaTrash style={{marginRight: 5}}/> Delete
+                                </Button>
+                            </td>
                         </tr>
                         ))
                         ) : (
@@ -65,6 +76,7 @@ const Pages = ()=> {
                     )}
                 </tbody>
             </Table>
+            
     </div>
   )
 }
