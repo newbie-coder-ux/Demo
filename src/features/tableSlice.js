@@ -22,5 +22,5 @@ const tableSlice = createSlice({
   }
 });
 
-export const { updateRow, addRow } = tableSlice.actions;
+export const { updateRow, addRow, setInitialData } = tableSlice.actions;
 export default tableSlice.reducer;
