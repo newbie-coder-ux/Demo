@@ -1,13 +1,18 @@
 import {useState,useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import {headers} from '../constants/constants';
+import {useSelector,useDispatch} from 'react-redux'
 
 
 
 const Pages = ()=> {
-    const [customer, setCustomer] = useState([]);
+    const dispatch = useDispatch();
+    const customerState = useSelector((state) => state.table);
+    // const [customer, setCustomer] = useState([]);
+
+    console.log("state",customerState);
 
     useEffect(()=>{
         const fetchData = () => {
@@ -21,8 +26,8 @@ const Pages = ()=> {
                         id: user.id + i * data.length // make ids unique
                     })));
                 }
-                setCustomer(replicated);
-                console.log(replicated)
+                // setCustomer(replicated);
+                dispatch(setInitialData(replicated));
             })
         }
         fetchData();
@@ -39,8 +44,8 @@ const Pages = ()=> {
                     </tr>
                 </thead>
                 <tbody>
-                    {customer.length > 0 ? (
-                        customer.map((customer) => (
+                    {customerState.length > 0 ? (
+                        customerState.map((customer) => (
                         <tr key={customer.id}>
                             <td>{customer.id}</td>
                             <td>{customer.name}</td>
