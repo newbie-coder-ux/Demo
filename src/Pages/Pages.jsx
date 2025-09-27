@@ -5,13 +5,16 @@ import { Table } from 'react-bootstrap';
 // import axios from 'axios';
 import {headers} from '../constants/constants';
 import {useSelector,useDispatch} from 'react-redux';
+import {Button} from 'react-bootstrap';
+import {FaEdit, FaTrash} from 'react-icons/fa';
+import { setInitialData} from '../features/tableSlice';
 import {ConfirmationModel} from '../components/Modal/ConfirmationModal';
 import {CustomerDetailsEditModal} from '../components/Modal/CustomerDetailsEditModal';
 
 const Pages = ()=> {
     const [show,setShow]=useState(false);
     const dispatch = useDispatch();
-    const customerState = useSelector((state) => state.table);
+    const customerState = useSelector((state) => state?.table);
     const [selectedId, setSelectedId] = useState('')
     // const [customer, setCustomer] = useState([]);
 
@@ -69,10 +72,10 @@ const Pages = ()=> {
                             <td>{customer.address?.city}</td>
                             <td>
                                 {/* Edit */}
-                                <Button variant="warning" onClick={(id) => handleEdit(id)}>
+                                <Button variant="primary" onClick={(id) => handleEdit(id)} style={{marginBottom:'10px'}}>
                                     <FaEdit style={{marginRight: 5}}/> Edit
                                 </Button>
-                                <Button variant="warning" onClick={(id) => handleDelete(id)}>
+                                <Button variant="primary" onClick={(id) => handleDelete(id)}>
                                     <FaTrash style={{marginRight: 5}}/> Delete
                                 </Button>
                             </td>
@@ -80,9 +83,9 @@ const Pages = ()=> {
                         ))
                         ) : (
                     <tr>
-                    <td colSpan="5" className="text-center">
-                        No customer data available.
-                    </td>
+                        <td colSpan="5" className="text-center">
+                            No customer data available.
+                        </td>
                     </tr>
                     )}
                 </tbody>

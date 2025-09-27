@@ -3,7 +3,7 @@ const Demo = () => {
 
     return(
         <>
-        <h1>Demo</h1>
+        <h1>Customers 360 Insights Portal</h1>
         <ButtonWithModal></ButtonWithModal>
         </>
     )
